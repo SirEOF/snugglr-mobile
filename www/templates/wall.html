@@ -1,0 +1,64 @@
+<ion-side-menus>
+  <ion-side-menu-content>
+     <ion-header-bar>
+       <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+      <h1 class="title">Snugglr</h1>
+      <button menu-toggle="right" class="button ion-ios7-camera-outline button-icon icon"> </button>
+    </ion-header-bar>
+
+    <ion-content>
+      <div class="list"> 
+        <div class="card list" ng-repeat="user in users">
+        
+          <div class="item item-image">
+            <img ng-src="{{user.profile[0]}}">
+          </div>
+
+          <input style="display: inline" type="file" ng-model="entry.resume" class="form-control" id="resumeInput" ng-file-select="onFileSelect($files, user._id)" required> </input>
+
+          <div class="item tabs tabs-secondary tabs-icon-left">
+            <a class="tab-item"> <i class="icon ion-thumbsup"></i>Snap </a>
+            <a class="tab-item"><i class="icon ion-share"></i>Block</a>
+          </div>
+        </div>
+      </div>
+    </ion-content>
+  </ion-side-menu-content>
+
+  <ion-side-menu side="left">
+    <ion-header-bar>
+     <h1 class="title">Menu</h1>
+    </ion-header-bar>
+    <ion-content scroll="false">
+      <ion-list>
+        <ion-item nav-clear menu-close href="#/profile"> Profile </ion-item>
+        <ion-item nav-clear menu-close href="#/wall"> Wall </ion-item>
+        <ion-item nav-clear menu-close href="logout"> Logout </ion-item>
+      </ion-list>
+    </ion-content>
+   </ion-side-menu>
+
+  <ion-side-menu side="right">
+    <ion-header-bar>
+      <h1 class="title">Snaps</h1>
+    </ion-header-bar>
+    <ion-content scroll="false">
+      <ion-list>
+        <ion-item class="item-thumbnail-left" ng-repeat="snap in snaps | filter:{seen: false}" nav-clear menu-close href="#/snaps/{{snap._id}}">  
+          <img ng-src="{{snap.from.profile[0]}}">
+          <h2> {{snap.from.name}} </h2>
+          <p>  {{snap.dateSent | date:'medium'}} </p>
+        </ion-item>
+
+        <div class="item item-divider"> Previous Snaps </div>
+        <ion-item class="item-thumbnail-left" ng-repeat="snap in snaps | filter:{seen: true}" nav-clear menu-close href="#/snaps/{{snap._id}}">  
+          <img ng-src="{{snap.from.profile[0]}}">
+          <h2> {{snap.from.name}} </h2>
+          <p>  {{snap.dateSent | date:'medium'}} </p>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-side-menu>
+</ion-side-menus>
+
+
